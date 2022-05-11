@@ -31,31 +31,30 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let percentFloat = parseFloat(percent / 100);
   let contributionFloat = parseFloat(contribution);
   let amountFloat = parseFloat(amount);
-  
-  //calculating date range TODO fill the rigth logics!
-  let monthCount;
-  let currentMonth = currentDate.getMonth();
-  let currentYear = currentDate.getFullYear();
-  let creditMonthInCurrentYear = 12 - currentMonth;
-  let creditMonthsInYears = (date.getFullYear() - currentYear) * 12;
-  
-  monthCount = creditMonthInCurrentYear + creditMonthsInYears;
 
   //verifying floats
   if (percentFloat === NaN) {
     errString = `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
     return errString;
   };
-
+  
   if (contributionFloat === NaN) {
     errString = `Параметр "Начальный взнос" содержит неправильное значение "${contribution}”`;
     return errString;
   }
-
+  
   if (amountFloat === NaN) {
     errString = `Параметр "Общая стоимость" содержит неправильное значение "${amount}”`;
     return errString;
   }
+  
+  //calculating date range TODO fill the rigth logics!
+  let monthCount;
+  let currentMonth = currentDate.getMonth();
+  let currentYear = currentDate.getFullYear();
+  let creditYears = date.getFullYear() - currentYear;
+    
+  monthCount = creditYears *12 - currentMonth + date.getMonth();
 
   //calculating credit summary
   let creditSum = amountFloat - contributionFloat;
