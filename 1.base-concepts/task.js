@@ -7,8 +7,7 @@ function solveEquation(a, b, c) {
 
   arr = [];
 
-  if (discriminant < 0) {
-  } else if (discriminant === 0) {
+ if (discriminant === 0) {
     //has one solution
     let result = -b / (2 * a);
     arr.push(result);
