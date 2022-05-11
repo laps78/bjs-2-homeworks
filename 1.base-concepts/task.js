@@ -27,34 +27,32 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let errString = '';
   let currentDate = new Date();
 
-  //Parsing floats
-  let percentFloat = parseFloat(percent / 100);
-  let contributionFloat = parseFloat(contribution);
-  let amountFloat = parseFloat(amount);
-
-  //verifying floats
-  if (percentFloat === NaN) {
+  //verifying input data
+  if (typeof(percent) !== 'number') {
     errString = `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
     return errString;
   };
   
-  if (contributionFloat === NaN) {
-    errString = `Параметр "Начальный взнос" содержит неправильное значение "${contribution}”`;
+  if (typeof(contribution) !== 'number') {
+    errString = `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
     return errString;
   }
   
-  if (amountFloat === NaN) {
-    errString = `Параметр "Общая стоимость" содержит неправильное значение "${amount}”`;
+  if (typeof(amount) !== "number") {
+    errString = `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
     return errString;
   }
+
+  //Parsing floats
+  let percentFloat = parseFloat(percent / 100);
+  let contributionFloat = parseFloat(contribution);
+  let amountFloat = parseFloat(amount);
   
-  //calculating date range TODO fill the rigth logics!
-  let monthCount;
+  //calculating date range
   let currentMonth = currentDate.getMonth();
   let currentYear = currentDate.getFullYear();
   let creditYears = date.getFullYear() - currentYear;
-    
-  monthCount = creditYears *12 - currentMonth + date.getMonth();
+  let monthCount = creditYears *12 - currentMonth + date.getMonth();
 
   //calculating credit summary
   let creditSum = amountFloat - contributionFloat;
@@ -69,7 +67,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   totalAmount = (monthCount * monthlyPayment) + contributionFloat; 
   totalAmount = totalAmount.toFixed(2);
   
-  console.log(totalAmount);
+  console.log(Number(totalAmount));
   
-  return totalAmount;
+  return Number(totalAmount);
 }
