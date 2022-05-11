@@ -29,7 +29,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let currentDate = new Date();
 
   //Parsing floats
-  let percentFloat = parseFloat(percent);
+  let percentFloat = parseFloat(percent / 100);
   let contributionFloat = parseFloat(contribution);
   let amountFloat = parseFloat(amount);
   
@@ -37,34 +37,35 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let monthCount;
   let currentMonth = currentDate.getMonth();
   let currentYear = currentDate.getFullYear();
-  let creditMonthInCurrentYear = 12 - currentMonth;//take in mind that months are counted from ZERO!!!
+  let creditMonthInCurrentYear = 12 - currentMonth;
   let creditMonthsInYears = (date.getFullYear() - currentYear) * 12;
   
   monthCount = creditMonthInCurrentYear + creditMonthsInYears;
 
   //verifying floats
-  if (typeof(percentFloat) !== float) {
-    errString = `“Параметр <процентная ставка> содержит неправильное значени е <${percent}>”`;
+  if (percentFloat === NaN) {
+    errString = `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
     return errString;
   };
 
-  if (typeof(contributionFloat) !== float) {
-    errString = `“Параметр <первоначальный взнос> содержит неправильное значение <${contribution}>”`;
+  if (contributionFloat === NaN) {
+    errString = `Параметр "Начальный взнос" содержит неправильное значение "${contribution}”`;
     return errString;
   }
 
-  if (typeof (amountFloat) !== float) {
-    errString = `“Параметр <сумма кредита> содержит неправильное значение <${amount}>”`;
+  if (amountFloat === NaN) {
+    errString = `Параметр "Общая стоимость" содержит неправильное значение "${amount}”`;
     return errString;
   }
+
   //calculating credit summary
   let creditSum = amountFloat - contributionFloat;
 
   //Calculating percent per month
-  let montlyPercent = percentFloat / 12;
+  let monthlyPercent = percentFloat / 12;
   
   //calculating monthly payment
-  let monthlyPayment = creditSum * (montlyPercent + (((1 + montlyPercent) ^ monthCount) - 1));
+  let monthlyPayment = creditSum * (monthlyPercent + (monthlyPercent /(Math.pow((1 + monthlyPercent), monthCount) - 1)));
   
   //calculating total amount
   totalAmount = (monthCount * monthlyPayment) + contributionFloat; 
