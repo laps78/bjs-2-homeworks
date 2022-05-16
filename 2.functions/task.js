@@ -60,4 +60,9 @@ function makeWork(arrOfArr, func) {
 // Задание 3
 function worker2(arr) {
   // Ваш код
+  let arrParams = getArrayParams(arr);
+  
+  console.log(arrParams);
+
+  return Math.abs(arrParams.max - arrParams.min);
 }
