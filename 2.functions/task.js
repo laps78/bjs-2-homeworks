@@ -7,12 +7,13 @@ function getArrayParams(arr) {
   max = -Infinity;
   sum = 0;
 
-  for (i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     sum += arr[i];
 
     if (arr[i] > max) {
       max = arr[i];
     }
+
     if (arr[i] < min) {
       min = arr[i];
     }
@@ -28,7 +29,10 @@ function worker(arr) {
   let sum;
 
   // Ваш код
-
+  sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
   return sum;
 }
 
@@ -36,7 +40,19 @@ function makeWork(arrOfArr, func) {
   let max;
 
   // Ваш кода
+  max = -Infinity;
+  let sumArr = [];
+  
   // for ...
+  for (let i = 0; i < arrOfArr.length; ++i) {
+    sumArr.push(func(arrOfArr[i]));
+  }
+
+  for (let i = 0; i < sumArr.length; ++i) {
+    if (sumArr[i] > max) {
+      max = sumArr[i];
+    }
+  }
   
   return max;
 }
