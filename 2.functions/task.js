@@ -41,18 +41,13 @@ function makeWork(arrOfArr, func) {
 
   // Ваш кода
   max = -Infinity;
-  let sumArr = [];
   
   // for ...
   for (let i = 0; i < arrOfArr.length; ++i) {
-    sumArr.push(func(arrOfArr[i]));
-  }
-
-  for (let i = 0; i < sumArr.length; ++i) {
-    if (sumArr[i] > max) {
-      max = sumArr[i];
+    if (func(arrOfArr[i]) > max) {
+      max = func(arrOfArr[i]);
     }
-  }
+  }  
   
   return max;
 }
