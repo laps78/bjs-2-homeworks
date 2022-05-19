@@ -2,7 +2,7 @@ function compareArrays(arr1, arr2) {
   let result;
 
   // Ваш код
-  result = JSON.stringify(arr1) === JSON.stringify(arr2);
+  result = arr1.length === arr2.length && arr1.every((item, index) => item === arr2[index]);
 
   return result; // boolean
 }
