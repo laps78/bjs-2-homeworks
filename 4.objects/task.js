@@ -19,8 +19,30 @@ Student.prototype.addMark = function (mark) {
   }
 }
 
-Student.prototype.addMarks(...marks) {
+Student.prototype.addMarks = function(...marks){
   for (let mark in marks) {
-    this.marks.push(mark);
+    if (this.marks === undefined) {
+      this.marks = [marks[mark],];
+    } else {
+      this.marks.push(marks[mark]);
+    }
   }
+}
+
+Student.prototype.getAverage = function () {
+  let sum = 0;
+  if (this.marks) {
+    for (let mark in this.marks) {
+      sum += this.marks[mark];
+    };
+    return sum / this.marks.length;
+  } else { 
+    console.log(`there is no marks (is undefined)!`);
+  }
+}
+
+Student.prototype.exclude = function (reason) {
+  delete this.subject;
+  delete this.marks;
+  this.excluded = reason;
 }
