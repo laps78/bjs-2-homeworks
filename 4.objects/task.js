@@ -13,32 +13,27 @@ Student.prototype.setSubject = function (subjectName) {
 // ваш код для остальных методов
 Student.prototype.addMark = function (mark) {
   if (this.marks === undefined) {
-    this.marks = [mark,];
+    this.marks = [mark];
   } else {
     this.marks.push(mark);
   }
 }
 
 Student.prototype.addMarks = function(...marks){
-  for (let mark in marks) {
-    if (this.marks === undefined) {
-      this.marks = [marks[mark],];
+  
+  if (this.marks === undefined) {
+      this.marks = [...marks];
     } else {
-      this.marks.push(marks[mark]);
+      this.marks.push(...marks);
     }
-  }
+  
 }
 
 Student.prototype.getAverage = function () {
-  let sum = 0;
-  if (this.marks) {
-    for (let mark in this.marks) {
-      sum += this.marks[mark];
-    };
-    return sum / this.marks.length;
-  } else { 
+  if (!this.marks) {
     console.log(`there is no marks (is undefined)!`);
   }
+  return this.marks.reduce((sum, current) => sum + current) / this.marks.length;
 }
 
 Student.prototype.exclude = function (reason) {
