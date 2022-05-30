@@ -25,3 +25,18 @@ class PrintEditionItem {
     return this._state;
   }
 }
+
+class Magazine extends PrintEditionItem {
+  constructor(name, releaseDate, pagesCount) {
+    super(name, releaseDate, pagesCount);
+    this.type = 'magazine';    
+  };
+}
+
+class Book extends PrintEditionItem {
+  constructor(name, releaseDate, pagesCount, author) {
+    super(name, releaseDate, pagesCount);
+    this.author = author;
+    this.type = 'book';
+  }
+}
