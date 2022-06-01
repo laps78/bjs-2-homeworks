@@ -90,8 +90,9 @@ class Library {
   }
 
   giveBookByName(bookName) {
-    //findIndex + splice
-    let result = this.books.splice(this.books.findIndex(bookName));
+    let searchResult = this.books.findIndex(elem => elem.name === bookName);
+    if (searchResult === -1) return null;
+    return this.books.splice(searchResult, 1);
   }
 }
 
