@@ -92,7 +92,16 @@ class Library {
   giveBookByName(bookName) {
     let searchResult = this.books.findIndex(elem => elem.name === bookName);
     if (searchResult === -1) return null;
-    return this.books.splice(searchResult, 1);
+    return this.books.splice(searchResult, 1)[0];
   }
 }
 
+class Student {
+  constructor(name) {
+    this.name = name;
+  }
+
+  addMark(mark, subject) {
+
+  }
+}
