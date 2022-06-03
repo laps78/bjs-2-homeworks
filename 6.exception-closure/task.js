@@ -14,7 +14,12 @@ function validateCount(value) {
 }
 class Triangle {
   constructor(one, two, three) {
-    if (one + two < three) throw "Треугольник с такими сторонами не существует";
+    const err = new Error("Треугольник с такими сторонами не существует");
+    this.one = Number.parseFloat(one);
+    this.two = Number.parseFloat(two);
+    this.three = Number.parseFloat(three);
+
+    if ((this.one + this.two) < this.three && (this.two + this.three) < this.one && (this.one + this.three) < this.two) throw err;
   }
 
   getPerimeter(one, two, three) {
@@ -22,15 +27,15 @@ class Triangle {
   }
 
   getArea(one, two, three) {
-    let p = getPerimeter(one, two, three) / 2;
+    let p = this.getPerimeter(one, two, three) / 2;
     let area = Math.sqrt(p * (p - one) * (p - two) * (p - three));
-    return area;
+    return area.toFixed(3);
   }
 }
 
-function getTriangle(one,two,three) {
+function getTriangle(one, two, three) {
   try {
-    return new Triangle;
+    return new Triangle(one, two, three);
   } catch (error) {
     //возвращайте объект с двумя методами getArea и getPerimeter, которые возвращают строку: "Ошибка! Треугольник не существует".
   }
