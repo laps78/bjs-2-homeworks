@@ -70,12 +70,12 @@ function testCase() {
 
   //???????????????
   let callbackFunc = setInterval(() => {
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i < 3; i++) {
       console.log('дилинь!!! дилинь!!');
     };
   }, 1000);
 
-  alarm.addClock(alarm.getCurrentFormattedTime(), callbackFunc);
+  alarm.addClock(alarm.getCurrentFormattedTime(), callbackFunc, id);
 
 }
 
