@@ -2,35 +2,33 @@
 class AlarmClock {
   constructor() {
     this.alarmCollection = [];
-    this.timerId;
+    this.timerId = null;
   }
 
   addClock(time, callbackFunc, id) {
     if (!id) {
       throw new Error('Не передано id!');
     }
-    let validateId = this.alarmCollection.find(item => {
-      if (item.id === id) {
-        console.error();
-        return;
-      }
-    });
+    let validateId = this.alarmCollection.some(item => item.id === id);
+    if (validateId) {
+      console.error('id already exists');
+      return;
+    }
     this.alarmCollection.push({ time, callbackFunc, id });
   }
 
   removeClock(id) {
     let searchResult = this.alarmCollection.findIndex(elem => elem.id === id);
-    if (searchResult === -1) return null;
-    if (this.alarmCollection.splice(searchResult, 1)[0]) {
-      return true;
-    } else {
+    if (searchResult === -1) {
       return false;
     }
+    this.alarmCollection.splice(searchResult, 1)[0];
+    return true;
+    
   }
 
   getCurrentFormattedTime() {
-    let now = new Date().toLocaleTimeString("ru", { hour: "2-digit", minute: "2-digit", hour12: false });
-    return now;
+    return new Date().toLocaleTimeString("ru", { hour: "2-digit", minute: "2-digit", hour12: false });
   }
 
   start() {
@@ -47,18 +45,18 @@ class AlarmClock {
   }
 
   stop() {
-    this.alarmCollection.forEach(item => {
-      if (item.id) {
-        clearInterval(item.id);
-        item.id = null;
+    if (this.timerId) {
+        clearInterval(this.timerId);
+        this.timerId = null;
       }
-    });
   }
+
   printAlarms() {
     this.alarmCollection.forEach(item => {
       console.log(item.id, item.time);
     });
   }
+
   clearAlarms() {
     this.stop();
     this.alarmCollection = [];
@@ -68,14 +66,13 @@ class AlarmClock {
 function testCase() {
   let alarm = new AlarmClock();
 
-  //???????????????
   let callbackFunc = setInterval(() => {
     for (let i = 0; i < 3; i++) {
       console.log('дилинь!!! дилинь!!');
     };
   }, 1000);
 
-  alarm.addClock(alarm.getCurrentFormattedTime(), callbackFunc, id);
+  alarm.addClock(alarm.getCurrentFormattedTime(), callbackFunc, 1);
 
 }
 
