@@ -22,7 +22,7 @@ class AlarmClock {
     if (searchResult === -1) {
       return false;
     }
-    this.alarmCollection.splice(searchResult, 1)[0];
+    this.alarmCollection.splice(searchResult, 1);
     return true;
     
   }
@@ -33,15 +33,16 @@ class AlarmClock {
 
   start() {
     let checkClock = (alarm) => {
-      if (item.time === now) {
+      if (alarm.time === this.getCurrentFormattedTime()) {
         item.callbackFunc();
       }
-      if (!item.id) {
-        item.id = setInterval(this.alarmCollection.forEach(item => {
-          checkClock(item);
-        }), 1000);
-      }
     };
+
+    if (!this.timerId) {
+      setInterval(this.alarmCollection.forEach(item => {
+        checkClock(item);
+      }), 1000);
+    }
   }
 
   stop() {
