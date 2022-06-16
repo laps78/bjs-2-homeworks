@@ -34,14 +34,16 @@ class AlarmClock {
   start() {
     let checkClock = (alarm) => {
       if (alarm.time === this.getCurrentFormattedTime()) {
-        item.callbackFunc();
+        alarm.callbackFunc();
       }
     };
 
     if (!this.timerId) {
-      setInterval(this.alarmCollection.forEach(item => {
-        checkClock(item);
-      }), 1000);
+      this.timerId = setInterval(() => {
+        this.alarmCollection.forEach(item => {
+          checkClock(item);
+        })
+      }, 1000);
     }
   }
 
