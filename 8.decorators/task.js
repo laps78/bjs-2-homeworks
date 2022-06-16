@@ -33,6 +33,11 @@ function debounceDecoratorNew(func) {
       return;
     }
 
+    //
+    console.log(`args: ${args}`);
+    console.log(`args[1]: ${args[1]}`);
+    //
+
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       func.apply(this, args);
@@ -44,4 +49,6 @@ function debounceDecoratorNew(func) {
 
 function debounceDecorator2(func) {
   // Ваш код
+    
+    //еще не приступал...
 }
