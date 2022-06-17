@@ -29,10 +29,8 @@ function debounceDecoratorNew(func, delay) {
   return function (...args) {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      if (!isCalled) {
-        func.apply(this, args);
-        isCalled = false;
-      }
+      func.apply(this, args);
+      isCalled = false;
     }, delay);
   };
 }
@@ -53,10 +51,8 @@ function debounceDecorator2(func, delay) {
     clearTimeout(timeout);
     
     timeout = setTimeout(() => {
-      if (!isCalled) {
-        func.apply(this, args);
-        isCalled = false;
-      }
+      func.apply(this, args);
+      isCalled = false;
     }, delay);
   };
 
