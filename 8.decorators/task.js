@@ -3,11 +3,11 @@ function cachingDecoratorNew(func) {
   let cache = [];
   function wrapper(...args) {
     const hash = args.join(',');
-    let index = cache.find((item) => item.hash === hash);
+    let elem = cache.find((item) => item.hash === hash);
 
-    if (index) {
-      console.log(`Из кэша: ${index.result}`);
-      return `Из кэша: ${index.result}`;
+    if (elem) {
+      console.log(`Из кэша: ${elem.result}`);
+      return `Из кэша: ${elem.result}`;
     };
     let result = func(...args);
     if (cache.length >= 5) {
@@ -20,15 +20,13 @@ function cachingDecoratorNew(func) {
   return wrapper;
 }
 
-
 function debounceDecoratorNew(func, delay) {
   // Ваш код
-  
+  func(...args);
   let timeout;
+  let isCalled = true;
 
   return function (...args) {
-    func(args);
-    let isCalled = true;
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       if (!isCalled) {
@@ -37,24 +35,23 @@ function debounceDecoratorNew(func, delay) {
       }
     }, delay);
   };
-
 }
 
-function debounceDecorator2(func) {
+function debounceDecorator2(func, delay) {
   // Ваш код
   let timeout;
-
+  func(...args);
+  let isCalled = true;
+  
   return function (...args) {
     if (!this.count) {
       this.count = 0;
     }
-
-    func(args);
-
+    
     this.count++
-    let isCalled = true;
-
+    
     clearTimeout(timeout);
+    
     timeout = setTimeout(() => {
       if (!isCalled) {
         func.apply(this, args);
